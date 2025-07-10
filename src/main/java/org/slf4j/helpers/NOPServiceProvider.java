@@ -1,41 +1,37 @@
-/*    */ package org.slf4j.helpers;
-/*    */ 
-/*    */ import org.slf4j.ILoggerFactory;
-/*    */ import org.slf4j.IMarkerFactory;
-/*    */ import org.slf4j.spi.MDCAdapter;
-/*    */ import org.slf4j.spi.SLF4JServiceProvider;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class NOPServiceProvider
-/*    */   implements SLF4JServiceProvider
-/*    */ {
-/* 15 */   public static String REQUESTED_API_VERSION = "1.8.99";
-/*    */   
-/* 17 */   private ILoggerFactory loggerFactory = new NOPLoggerFactory();
-/* 18 */   private IMarkerFactory markerFactory = new BasicMarkerFactory();
-/* 19 */   private MDCAdapter mdcAdapter = new NOPMDCAdapter();
-/*    */   
-/*    */   public ILoggerFactory getLoggerFactory() {
-/* 22 */     return this.loggerFactory;
-/*    */   }
-/*    */   
-/*    */   public IMarkerFactory getMarkerFactory() {
-/* 26 */     return this.markerFactory;
-/*    */   }
-/*    */   
-/*    */   public MDCAdapter getMDCAdapter() {
-/* 30 */     return this.mdcAdapter;
-/*    */   }
-/*    */   
-/*    */   public String getRequesteApiVersion() {
-/* 34 */     return REQUESTED_API_VERSION;
-/*    */   }
-/*    */   
-/*    */   public void initialize() {}
-/*    */ }
+package org.slf4j.helpers;
+
+import org.slf4j.ILoggerFactory;
+import org.slf4j.IMarkerFactory;
+import org.slf4j.spi.MDCAdapter;
+import org.slf4j.spi.SLF4JServiceProvider;
+
+public class NOPServiceProvider implements SLF4JServiceProvider {
+  public static String REQUESTED_API_VERSION = "1.8.99";
+  
+  private ILoggerFactory loggerFactory = new NOPLoggerFactory();
+  
+  private IMarkerFactory markerFactory = new BasicMarkerFactory();
+  
+  private MDCAdapter mdcAdapter = new NOPMDCAdapter();
+  
+  public ILoggerFactory getLoggerFactory() {
+    return this.loggerFactory;
+  }
+  
+  public IMarkerFactory getMarkerFactory() {
+    return this.markerFactory;
+  }
+  
+  public MDCAdapter getMDCAdapter() {
+    return this.mdcAdapter;
+  }
+  
+  public String getRequesteApiVersion() {
+    return REQUESTED_API_VERSION;
+  }
+  
+  public void initialize() {}
+}
 
 
 /* Location:              D:\下载\MagicCosmetics-3.1.0[tinksp.com].jar!\org\slf4j\helpers\NOPServiceProvider.class

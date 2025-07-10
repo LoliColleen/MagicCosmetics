@@ -1,88 +1,70 @@
-/*    */ package org.slf4j.event;
-/*    */ 
-/*    */ import java.util.Queue;
-/*    */ import org.slf4j.Marker;
-/*    */ import org.slf4j.helpers.LegacyAbstractLogger;
-/*    */ import org.slf4j.helpers.SubstituteLogger;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public class EventRecodingLogger
-/*    */   extends LegacyAbstractLogger
-/*    */ {
-/*    */   private static final long serialVersionUID = -176083308134819629L;
-/*    */   String name;
-/*    */   SubstituteLogger logger;
-/*    */   Queue<SubstituteLoggingEvent> eventQueue;
-/*    */   static final boolean RECORD_ALL_EVENTS = true;
-/*    */   
-/*    */   public EventRecodingLogger(SubstituteLogger logger, Queue<SubstituteLoggingEvent> eventQueue) {
-/* 31 */     this.logger = logger;
-/* 32 */     this.name = logger.getName();
-/* 33 */     this.eventQueue = eventQueue;
-/*    */   }
-/*    */   
-/*    */   public String getName() {
-/* 37 */     return this.name;
-/*    */   }
-/*    */   
-/*    */   public boolean isTraceEnabled() {
-/* 41 */     return true;
-/*    */   }
-/*    */   
-/*    */   public boolean isDebugEnabled() {
-/* 45 */     return true;
-/*    */   }
-/*    */   
-/*    */   public boolean isInfoEnabled() {
-/* 49 */     return true;
-/*    */   }
-/*    */   
-/*    */   public boolean isWarnEnabled() {
-/* 53 */     return true;
-/*    */   }
-/*    */   
-/*    */   public boolean isErrorEnabled() {
-/* 57 */     return true;
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   protected void handleNormalizedLoggingCall(Level level, Marker marker, String msg, Object[] args, Throwable throwable) {
-/* 63 */     SubstituteLoggingEvent loggingEvent = new SubstituteLoggingEvent();
-/* 64 */     loggingEvent.setTimeStamp(System.currentTimeMillis());
-/* 65 */     loggingEvent.setLevel(level);
-/* 66 */     loggingEvent.setLogger(this.logger);
-/* 67 */     loggingEvent.setLoggerName(this.name);
-/* 68 */     if (marker != null) {
-/* 69 */       loggingEvent.addMarker(marker);
-/*    */     }
-/* 71 */     loggingEvent.setMessage(msg);
-/* 72 */     loggingEvent.setThreadName(Thread.currentThread().getName());
-/*    */     
-/* 74 */     loggingEvent.setArgumentArray(args);
-/* 75 */     loggingEvent.setThrowable(throwable);
-/*    */     
-/* 77 */     this.eventQueue.add(loggingEvent);
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   protected String getFullyQualifiedCallerName() {
-/* 83 */     return null;
-/*    */   }
-/*    */ }
+package org.slf4j.event;
+
+import java.util.Queue;
+import org.slf4j.Marker;
+import org.slf4j.helpers.LegacyAbstractLogger;
+import org.slf4j.helpers.SubstituteLogger;
+
+public class EventRecodingLogger extends LegacyAbstractLogger {
+  private static final long serialVersionUID = -176083308134819629L;
+  
+  String name;
+  
+  SubstituteLogger logger;
+  
+  Queue<SubstituteLoggingEvent> eventQueue;
+  
+  static final boolean RECORD_ALL_EVENTS = true;
+  
+  public EventRecodingLogger(SubstituteLogger logger, Queue<SubstituteLoggingEvent> eventQueue) {
+    this.logger = logger;
+    this.name = logger.getName();
+    this.eventQueue = eventQueue;
+  }
+  
+  public String getName() {
+    return this.name;
+  }
+  
+  public boolean isTraceEnabled() {
+    return true;
+  }
+  
+  public boolean isDebugEnabled() {
+    return true;
+  }
+  
+  public boolean isInfoEnabled() {
+    return true;
+  }
+  
+  public boolean isWarnEnabled() {
+    return true;
+  }
+  
+  public boolean isErrorEnabled() {
+    return true;
+  }
+  
+  protected void handleNormalizedLoggingCall(Level level, Marker marker, String msg, Object[] args, Throwable throwable) {
+    SubstituteLoggingEvent loggingEvent = new SubstituteLoggingEvent();
+    loggingEvent.setTimeStamp(System.currentTimeMillis());
+    loggingEvent.setLevel(level);
+    loggingEvent.setLogger(this.logger);
+    loggingEvent.setLoggerName(this.name);
+    if (marker != null)
+      loggingEvent.addMarker(marker); 
+    loggingEvent.setMessage(msg);
+    loggingEvent.setThreadName(Thread.currentThread().getName());
+    loggingEvent.setArgumentArray(args);
+    loggingEvent.setThrowable(throwable);
+    this.eventQueue.add(loggingEvent);
+  }
+  
+  protected String getFullyQualifiedCallerName() {
+    return null;
+  }
+}
 
 
 /* Location:              D:\下载\MagicCosmetics-3.1.0[tinksp.com].jar!\org\slf4j\event\EventRecodingLogger.class

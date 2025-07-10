@@ -1,35 +1,12 @@
-/*    */ package com.zaxxer.hikari.pool;
-/*    */ 
-/*    */ import java.sql.CallableStatement;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public abstract class ProxyCallableStatement
-/*    */   extends ProxyPreparedStatement
-/*    */   implements CallableStatement
-/*    */ {
-/*    */   protected ProxyCallableStatement(ProxyConnection connection, CallableStatement statement) {
-/* 30 */     super(connection, statement);
-/*    */   }
-/*    */ }
+package com.zaxxer.hikari.pool;
+
+import java.sql.CallableStatement;
+
+public abstract class ProxyCallableStatement extends ProxyPreparedStatement implements CallableStatement {
+  protected ProxyCallableStatement(ProxyConnection connection, CallableStatement statement) {
+    super(connection, statement);
+  }
+}
 
 
 /* Location:              D:\下载\MagicCosmetics-3.1.0[tinksp.com].jar!\com\zaxxer\hikari\pool\ProxyCallableStatement.class

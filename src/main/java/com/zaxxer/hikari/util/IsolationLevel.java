@@ -1,40 +1,23 @@
-/*    */ package com.zaxxer.hikari.util;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ public enum IsolationLevel
-/*    */ {
-/* 21 */   TRANSACTION_NONE(0),
-/* 22 */   TRANSACTION_READ_UNCOMMITTED(1),
-/* 23 */   TRANSACTION_READ_COMMITTED(2),
-/* 24 */   TRANSACTION_REPEATABLE_READ(4),
-/* 25 */   TRANSACTION_SERIALIZABLE(8),
-/* 26 */   TRANSACTION_SQL_SERVER_SNAPSHOT_ISOLATION_LEVEL(4096);
-/*    */   
-/*    */   private final int levelId;
-/*    */   
-/*    */   IsolationLevel(int levelId) {
-/* 31 */     this.levelId = levelId;
-/*    */   }
-/*    */   
-/*    */   public int getLevelId() {
-/* 35 */     return this.levelId;
-/*    */   }
-/*    */ }
+package com.zaxxer.hikari.util;
+
+public enum IsolationLevel {
+  TRANSACTION_NONE(0),
+  TRANSACTION_READ_UNCOMMITTED(1),
+  TRANSACTION_READ_COMMITTED(2),
+  TRANSACTION_REPEATABLE_READ(4),
+  TRANSACTION_SERIALIZABLE(8),
+  TRANSACTION_SQL_SERVER_SNAPSHOT_ISOLATION_LEVEL(4096);
+  
+  private final int levelId;
+  
+  IsolationLevel(int levelId) {
+    this.levelId = levelId;
+  }
+  
+  public int getLevelId() {
+    return this.levelId;
+  }
+}
 
 
 /* Location:              D:\下载\MagicCosmetics-3.1.0[tinksp.com].jar!\com\zaxxer\hikar\\util\IsolationLevel.class

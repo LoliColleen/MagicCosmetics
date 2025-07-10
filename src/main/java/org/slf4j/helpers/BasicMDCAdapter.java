@@ -1,149 +1,69 @@
-/*     */ package org.slf4j.helpers;
-/*     */ 
-/*     */ import java.util.HashMap;
-/*     */ import java.util.Map;
-/*     */ import java.util.Set;
-/*     */ import org.slf4j.spi.MDCAdapter;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ public class BasicMDCAdapter
-/*     */   implements MDCAdapter
-/*     */ {
-/*  47 */   private InheritableThreadLocal<Map<String, String>> inheritableThreadLocal = new InheritableThreadLocal<Map<String, String>>()
-/*     */     {
-/*     */       protected Map<String, String> childValue(Map<String, String> parentValue) {
-/*  50 */         if (parentValue == null) {
-/*  51 */           return null;
-/*     */         }
-/*  53 */         return new HashMap<>(parentValue);
-/*     */       }
-/*     */     };
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void put(String key, String val) {
-/*  70 */     if (key == null) {
-/*  71 */       throw new IllegalArgumentException("key cannot be null");
-/*     */     }
-/*  73 */     Map<String, String> map = this.inheritableThreadLocal.get();
-/*  74 */     if (map == null) {
-/*  75 */       map = new HashMap<>();
-/*  76 */       this.inheritableThreadLocal.set(map);
-/*     */     } 
-/*  78 */     map.put(key, val);
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public String get(String key) {
-/*  85 */     Map<String, String> map = this.inheritableThreadLocal.get();
-/*  86 */     if (map != null && key != null) {
-/*  87 */       return map.get(key);
-/*     */     }
-/*  89 */     return null;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void remove(String key) {
-/*  97 */     Map<String, String> map = this.inheritableThreadLocal.get();
-/*  98 */     if (map != null) {
-/*  99 */       map.remove(key);
-/*     */     }
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public void clear() {
-/* 107 */     Map<String, String> map = this.inheritableThreadLocal.get();
-/* 108 */     if (map != null) {
-/* 109 */       map.clear();
-/* 110 */       this.inheritableThreadLocal.remove();
-/*     */     } 
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public Set<String> getKeys() {
-/* 121 */     Map<String, String> map = this.inheritableThreadLocal.get();
-/* 122 */     if (map != null) {
-/* 123 */       return map.keySet();
-/*     */     }
-/* 125 */     return null;
-/*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   
-/*     */   public Map<String, String> getCopyOfContextMap() {
-/* 135 */     Map<String, String> oldMap = this.inheritableThreadLocal.get();
-/* 136 */     if (oldMap != null) {
-/* 137 */       return new HashMap<>(oldMap);
-/*     */     }
-/* 139 */     return null;
-/*     */   }
-/*     */ 
-/*     */   
-/*     */   public void setContextMap(Map<String, String> contextMap) {
-/* 144 */     this.inheritableThreadLocal.set(new HashMap<>(contextMap));
-/*     */   }
-/*     */ }
+package org.slf4j.helpers;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import org.slf4j.spi.MDCAdapter;
+
+public class BasicMDCAdapter implements MDCAdapter {
+  private InheritableThreadLocal<Map<String, String>> inheritableThreadLocal = new InheritableThreadLocal<Map<String, String>>() {
+      protected Map<String, String> childValue(Map<String, String> parentValue) {
+        if (parentValue == null)
+          return null; 
+        return new HashMap<>(parentValue);
+      }
+    };
+  
+  public void put(String key, String val) {
+    if (key == null)
+      throw new IllegalArgumentException("key cannot be null"); 
+    Map<String, String> map = this.inheritableThreadLocal.get();
+    if (map == null) {
+      map = new HashMap<>();
+      this.inheritableThreadLocal.set(map);
+    } 
+    map.put(key, val);
+  }
+  
+  public String get(String key) {
+    Map<String, String> map = this.inheritableThreadLocal.get();
+    if (map != null && key != null)
+      return map.get(key); 
+    return null;
+  }
+  
+  public void remove(String key) {
+    Map<String, String> map = this.inheritableThreadLocal.get();
+    if (map != null)
+      map.remove(key); 
+  }
+  
+  public void clear() {
+    Map<String, String> map = this.inheritableThreadLocal.get();
+    if (map != null) {
+      map.clear();
+      this.inheritableThreadLocal.remove();
+    } 
+  }
+  
+  public Set<String> getKeys() {
+    Map<String, String> map = this.inheritableThreadLocal.get();
+    if (map != null)
+      return map.keySet(); 
+    return null;
+  }
+  
+  public Map<String, String> getCopyOfContextMap() {
+    Map<String, String> oldMap = this.inheritableThreadLocal.get();
+    if (oldMap != null)
+      return new HashMap<>(oldMap); 
+    return null;
+  }
+  
+  public void setContextMap(Map<String, String> contextMap) {
+    this.inheritableThreadLocal.set(new HashMap<>(contextMap));
+  }
+}
 
 
 /* Location:              D:\下载\MagicCosmetics-3.1.0[tinksp.com].jar!\org\slf4j\helpers\BasicMDCAdapter.class
